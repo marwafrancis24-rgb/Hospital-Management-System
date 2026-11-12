@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Health Management System - Patient Registration</title>
+
+<style>
+
+/* GENERAL SETTINGS */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        #d4edda,
+        #a8dfb0,
+        #e8f5e9
+    );
+    padding: 30px 15px;
+    color: #263746;
+}
+
+/* MAIN CONTAINER */
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    border-top: 7px solid #16A34A;
+    box-shadow: 0 12px 40px #14532D20;
+}
+
+/* LOGO */
+
+.logo-area {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #16A34A;
+}
+
+.logo svg {
+    width: 70px;
+    height: 70px;
+}
+
+.hospital-name {
+    color: #14532D;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 12px;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    color: #087f8c;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #dce8ee;
+    border-bottom: 3px solid #087f8c;
+    margin-top: 20px;
+}
+
+.header h1 {
+    color: #123b5d;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #087f8c;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+
+.date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.date label {
+    font-weight: bold;
+}
+
+.section {
+    margin-top: 30px;
+    padding: 22px;
+    background: #fbfdfe;
+    border: 1px solid #e0eaf0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(18,59,93,0.04);
+}
+
+.section h3 {
+    background: linear-gradient(
+        90deg,
+        #14532D,
+        #16A34A
+    );
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 22px;
+}
+
+/* FORM ROWS */
+
+.form-row {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 12px;
+}
+
+.field {
+    flex: 1;
+    margin-bottom: 18px;
+    min-width: 0;
+}
+
+/* LABELS */
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #263746;
+    font-size: 14px;
+}
+
+/* INPUTS */
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd9e2;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #263746;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #16A34A;
+    box-shadow: 0 0 8px #16A34A40;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9aaab5;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* RADIO OPTIONS */
+
+.options {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 15px 0 20px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.options input {
+    width: auto;
+    accent-color: #087f8c;
+}
+
+/* PHOTO UPLOAD */
+
+.photo-upload {
+    background: #edf7f9;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px dashed #087f8c;
+    margin-bottom: 20px;
+}
+
+.photo-preview {
+    display: none;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 12px;
+    border: 3px solid #087f8c;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    flex: 1;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.submit {
+    background: linear-gradient(
+        90deg,
+        #15803D,
+        #22C55E
+    );
+    color: white;
+}
+.reset {
+    background: #e5edf2;
+    color: #263746;
+}
+
+.print {
+    background: #123b5d;
+    color: white;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    opacity: 0.95;
+}
+
+/* FOOTER */
+
+.footer {
+    background: #14532D;
+    color: white;
+    text-align: center;
+    margin-top: 35px;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.footer h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+.footer .slogan {
+    color: #8de0df;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 12px;
+}
+
+/* SMALL DECORATIVE TEXT */
+
+.note {
+    color: #607582;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media(max-width: 650px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .hospital-name {
+        font-size: 21px;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .section h3 {
+        font-size: 14px;
+    }
+}
+
+/* PRINT DESIGN */
+
+@media print {
+
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .container {
+        box-shadow: none;
+        border: none;
+        padding: 15px;
+    }
+
+    .buttons,
+    .photo-upload {
+        display: none;
+    }
+
+    .section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    input, select, textarea {
+        border: 1px solid #999;
+    }
+
+    .footer {
+        background: white;
+        color: #123b5d;
+        border: 1px solid #123b5d;
+    }
+
+    .footer .slogan {
+        color: #087f8c;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HOSPITAL LOGO -->
+
+<div class="logo-area">
+
+    <div class="logo">
+
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+
+            <path d="M50 10
+                     C35 10 20 20 20 40
+                     C20 62 50 88 50 88
+                     C50 88 80 62 80 40
+                     C80 20 65 10 50 10Z" fill="#16A34A"></path>
+
+            <rect x="43" y="24" width="14" height="48" rx="3" fill="white"></rect>
+
+            <rect x="26" y="41" width="48" height="14" rx="3" fill="white"></rect>
+
+        </svg>
+
+    </div>
+
+    <div class="hospital-name">
+        HEALTH MANAGEMENT SYSTEM
+    </div>
+
+    <div class="tagline">
+        YOUR HEALTH, OUR PRIORITY
+    </div>
+
+</div>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <h1>PATIENT REGISTRATION FORM</h1>
+
+    <p>WELCOME TO OUR HEALTHCARE SYSTEM</p>
+
+</header>
+
+<form id="registrationForm">
+
+<!-- DATE -->
+
+
+<!-- 1. PATIENT INFORMATION -->
+
+<div class="section">
+
+<h3>👤 1. PATIENT INFORMATION</h3>
+
+<div class="form-row">
+
+    <div class="field">
+
+        <label>Patient ID (NHIF Card)</label>
+
+        <input type="text" placeholder="Enter NHIF card number">
+
+    </div>
+
+    <div class="field">
+
+        <label>Registration Date</label>
+
+        <input type="date" required="">
+
+    </div>
+
+</div>
+
+<div class="form-row">
+
+    <div class="field">
+
+        <label>First Name</label>
+
+        <input type="text" placeholder="Enter first name" required="">
+
+    </div>
+
+    <div class="field">
+
+        <label>Last Name</label>
+
+        <input type="text" placeholder="Enter last name" required="">
+
+    </div>
+
+</div>
+
+<label>Gender</label>
+
+<div class="options">
+
+    <label>
+        <input type="radio" name="gender" value="Male" required=""> Male
+    </label>
+
+    <label>
+        <input type="radio" name="gender" value="Female"> Female
+    </label>
+
+    <label>
+        <input type="radio" name="gender" value="Other"> Other
+    </label>
+
+</div>
+
+<div class="field">
+
+    <label>Birthdate (Month / Date / Year)</label>
+
+    <input type="date" required="">
+
+</div>
+
+<!-- 2. PATIENT ADDRESS -->
+
+<div class="section">
+
+<h3>📍 2. PATIENT ADDRESS</h3>
+
+<div class="field">
+
+    <label>Street Address</label>
+
+    <input type="text" placeholder="Enter street address">
+
+</div>
+
+<div class="form-row">
+
+    <div class="field">
+
+        <label>City</label>
+
+        <input type="text" placeholder="Enter city">
+
+    </div>
+
+    <div class="field">
+
+        <label id="regionLabel" for="region">Region</label>
+
+        <select id="region" name="region" required="">
+            <option value="">Choose Country First</option>
+        </select>
+
+        <input type="text" id="regionOther" name="region" placeholder="Enter your state, region or province" style="display: none; margin-top: 10px;">
+
+    </div>
+
+</div>
+
+<div class="form-row">
+
+    <div class="field">
+
+        <label>Country</label>
+
+        <select id="country" required="">
+
+            <option value="">Choose Country</option>
+            <option value="TZ">Tanzania</option>
+            <option value="KE">Kenya</option>
+            <option value="UG">Uganda</option>
+            <option value="RW">Rwanda</option>
+            <option value="BI">Burundi</option>
+            <option value="SS">South Sudan</option>
+            <option value="CD">Democratic Republic of Congo</option>
+            <option value="ZA">South Africa</option>
+            <option value="NG">Nigeria</option>
+            <option value="GH">Ghana</option>
+            <option value="US">United States (USA)</option>
+            <option value="GB">United Kingdom</option>
+            <option value="OTHER">Other</option>
+
+        </select>
+
+    </div>
+
+    <div class="field">
+
+        <label>Phone Number</label>
+
+        <input type="tel" placeholder="Enter phone number" required="">
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- 3. MEDICATION INFORMATION -->
+
+<div class="section">
+
+<h3>💊 3. MEDICATION INFORMATION</h3>
+
+<p class="note">
+Please list any medications you are currently taking,
+including medication names and dosages.
+</p>
+
+<textarea placeholder="Write your current medications here..."></textarea>
+
+</div>
+
+
+<!-- 4. ALLERGIES -->
+
+<div class="section">
+
+<h3>⚠️ 4. ALLERGIES</h3>
+
+<p class="note">
+Please list any allergies you have, including allergies
+to medication, food or other substances.
+If you have no known allergies, please write NONE.
+</p>
+
+<textarea placeholder="Write your allergies here..."></textarea>
+
+</div>
+
+
+<!-- 5. PRIMARY CARE PHYSICIAN INFORMATION -->
+
+<div class="section">
+
+<h3>🩺 5. PRIMARY CARE PHYSICIAN INFORMATION</h3>
+
+<p class="note">
+Please provide information about your primary care physician.
+</p>
+
+<div class="field">
+
+    <label>Physician Name</label>
+
+    <input type="text" placeholder="Enter physician name">
+
+</div>
+
+<div class="form-row">
+
+    <div class="field">
+
+        <label>Physician Room / Office No.</label>
+
+        <input type="text" placeholder="Enter office number">
+
+    </div>
+
+    <div class="field">
+
+        <label>Phone Number</label>
+
+        <input type="tel" placeholder="Physician phone number">
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- 6. METHODS OF PAYMENT -->
+
+<div class="section">
+
+<h3>💳 6. METHODS OF PAYMENT</h3>
+
+<p class="note">
+Please select your preferred method of payment.
+</p>
+
+<div class="options">
+
+    <label>
+        <input type="radio" name="payment" value="Cash" required="">
+        Cash
+    </label>
+
+    <label>
+        <input type="radio" name="payment" value="Mobile Payment">
+        Mobile Payment
+    </label>
+
+</div>
+
+<div class="field">
+
+    <label>Mobile Payment Options</label>
+
+    <select id="mobilePayment">
+
+        <option value="">Select payment provider</option>
+        <option>M-Pesa</option>
+        <option>Tigo Pesa</option>
+        <option>Airtel Money</option>
+        <option>HaloPesa</option>
+        <option>Other</option>
+
+    </select>
+
+</div>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+    <button type="submit" class="submit">
+        ✓ SUBMIT FORM
+    </button>
+
+    <button type="reset" class="reset">
+        ↻ CLEAR FORM
+    </button>
+
+    <button type="button" class="print" onclick="window.print()">
+        🖨 PRINT FORM
+    </button>
+
+</div>
+
+
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <h3>HEALTH MANAGEMENT SYSTEM</h3>
+
+    <p>Providing Better Healthcare Through Technology</p>
+
+    <p class="slogan">
+        Better Health. Brighter Tomorrow.
+    </p>
+
+    <p>© 2026 Health Management System. All Rights Reserved.</p>
+
+</footer>
+
+</div></form>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+
+
+// COUNTRY AND REGION / STATE SELECTION
+
+const countrySelect = document.getElementById("country");
+const regionSelect = document.getElementById("region");
+const regionLabel = document.getElementById("regionLabel");
+const regionOther = document.getElementById("regionOther");
+
+const locationsByCountry = {
+    TZ: {
+        label: "Region",
+        places: [
+            "Arusha", "Dar es Salaam", "Dodoma", "Geita", "Iringa",
+            "Kagera", "Katavi", "Kigoma", "Kilimanjaro", "Lindi",
+            "Manyara", "Mara", "Mbeya", "Morogoro", "Mtwara",
+            "Mwanza", "Njombe", "Pwani", "Rukwa", "Ruvuma",
+            "Shinyanga", "Simiyu", "Singida", "Songwe", "Tabora", "Tanga"
+        ]
+    },
+    US: {
+        label: "State",
+        places: [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+            "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+            "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
+            "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+            "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
+            "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
+            "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+            "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+            "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ]
+    },
+    KE: {
+        label: "County",
+        places: [
+            "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet",
+            "Embu", "Garissa", "Homa Bay", "Isiolo", "Kajiado", "Kakamega",
+            "Kericho", "Kiambu", "Kilifi", "Kirinyaga", "Kisii", "Kisumu",
+            "Kitui", "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni",
+            "Mandera", "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a",
+            "Nairobi", "Nakuru", "Nandi", "Narok", "Nyamira", "Nyandarua",
+            "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
+            "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu",
+            "Vihiga", "Wajir", "West Pokot"
+        ]
+    }
+};
+
+function updateRegionOptions() {
+    const selectedCountry = countrySelect.value;
+    const locationData = locationsByCountry[selectedCountry];
+
+    regionSelect.innerHTML = "";
+    regionOther.value = "";
+
+    if (locationData) {
+        regionLabel.textContent = locationData.label;
+        regionSelect.style.display = "block";
+        regionSelect.required = true;
+        regionOther.style.display = "none";
+        regionOther.required = false;
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Choose " + locationData.label;
+        regionSelect.appendChild(placeholder);
+
+        locationData.places.forEach(function(place) {
+            const option = document.createElement("option");
+            option.value = place;
+            option.textContent = place;
+            regionSelect.appendChild(option);
+        });
+    } else if (selectedCountry) {
+        regionLabel.textContent = "State / Region / Province";
+        regionSelect.style.display = "none";
+        regionSelect.required = false;
+        regionOther.style.display = "block";
+        regionOther.required = true;
+    } else {
+        regionLabel.textContent = "Region";
+        regionSelect.style.display = "block";
+        regionSelect.required = true;
+        regionOther.style.display = "none";
+        regionOther.required = false;
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = "Choose Country First";
+        regionSelect.appendChild(placeholder);
+    }
+}
+
+countrySelect.addEventListener("change", updateRegionOptions);
+
+// FORM SUBMISSION
+
+document.getElementById("registrationForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Patient registration submitted successfully!"
+    );
+
+});
+
+</script>
+
+
+
+</div></body></html>
